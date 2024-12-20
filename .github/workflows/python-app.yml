@@ -27,7 +27,7 @@ jobs:
         pip install requests pandas openpyxl
 
     - name: Run script
-      run: python path/to/your_script.py
+      run: python main.py
 
     - name: Upload Excel file
       uses: actions/upload-artifact@v4
