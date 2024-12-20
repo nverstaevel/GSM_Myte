@@ -29,8 +29,15 @@ jobs:
     - name: Run script
       run: python main.py
 
-    - name: Upload Excel file
-      uses: actions/upload-artifact@v4
-      with:
-        name: generated-data
-        path: data_*.xlsx
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Commit and push changes
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git add data_*.xlsx
+        git commit -m "Add generated data file"
+        git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
